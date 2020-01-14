@@ -1,0 +1,26 @@
+class Solution:
+    # 返回 RandomListNode
+    def Clone(self, pHead):
+        # write code here
+        pnode = pHead
+        while(pnode!=None):
+            pclone = RandomListNode(0)
+            pclone.label = pnode.label
+            pclone.next = pnode.next
+            pclone.random = None
+            pnode.next = pclone
+            pnode = pclone.next
+            
+    def connect(self,pHead):
+        pnode = pHead
+        while(pnode!=None):
+            pclone = pnode.next
+            if(pnode.random != None):
+                pclone.random = pnode.random.next
+            pnode = pclone.next
+    def reconnect(self,pHead):
+        pnode = pHead
+        pclonehead = None
+        pclonenode = None
+        if(pnode!=None):
+            
