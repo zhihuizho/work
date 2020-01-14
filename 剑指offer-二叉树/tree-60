@@ -1,0 +1,72 @@
+1.题目
+从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
+
+2.思路
+这道题比上一道题《剑指Offer（五十九）：按之字顺序打印二叉树》简单一些，牛客网将这两道题应该是放错顺序了。
+
+思路和上一道题一样，区别在于，这把是先入先出，使用队列即可。
+
+
+3.c++
+class Solution {
+public:
+        vector<vector<int> > Print(TreeNode* pRoot) {
+            vector<vector<int> > result;
+            if(pRoot == NULL){
+                return result;
+            }
+            queue<TreeNode* > nodes[2];
+            nodes[0].push(pRoot);
+            while(!nodes[0].empty() || !nodes[1].empty()){
+                vector<int> v[2];
+                while(!nodes[0].empty()){
+                    v[0].push_back(nodes[0].front()->val);
+                    if(nodes[0].front()->left != NULL){
+                        nodes[1].push(nodes[0].front()->left);
+                    }
+                    if(nodes[0].front()->right != NULL){
+                        nodes[1].push(nodes[0].front()->right);
+                    }
+                    nodes[0].pop();
+                }
+                if(!v[0].empty()){
+                    result.push_back(v[0]);
+                }
+                while(!nodes[1].empty()){
+                    v[1].push_back(nodes[1].front()->val);
+                    if(nodes[1].front()->left != NULL){
+                        nodes[0].push(nodes[1].front()->left);
+                    }
+                    if(nodes[1].front()->right != NULL){
+                        nodes[0].push(nodes[1].front()->right);
+                    }
+                    nodes[1].pop();
+                }
+                if(!v[1].empty()){
+                    result.push_back(v[1]);
+                }
+            }
+            return result;
+        }
+};
+
+4.python
+class Solution:
+    """docstring for Solution"""       
+    def Print(self, pRoot):
+        resultArray = []
+        if not pRoot:
+            return resultArray
+        curLayerNodes = [pRoot]
+        while curLayerNodes:
+            curLayerValues = []
+            nextLayerNodes = []
+            for node in curLayerNodes:
+                curLayerValues.append(node.val)
+                if node.left:
+                    nextLayerNodes.append(node.left)
+                if node.right:
+                    nextLayerNodes.append(node.right)
+            curLayerNodes = nextLayerNodes
+            resultArray.append(curLayerValues)
+        return resultArray
