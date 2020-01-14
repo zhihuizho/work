@@ -1,0 +1,47 @@
+1.题目
+操作给定的二叉树，将其变换为源二叉树的镜像。
+
+2.思路
+先交换根节点的两个子结点之后，我们注意到值为10、6的结点的子结点仍然保持不变，因此我们还需要交换这两个结点的左右子结点。
+做完这两次交换之后，我们已经遍历完所有的非叶结点。此时变换之后的树刚好就是原始树的镜像。
+
+
+3.c++
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        if((pRoot == NULL) || (pRoot->left == NULL && pRoot->right == NULL)){
+            return;
+        }
+        
+        //交换根节点的左右结点
+        TreeNode *pTemp = pRoot->left;
+        pRoot->left = pRoot->right;
+        pRoot->right = pTemp;
+        
+        //递归左子树
+        if(pRoot->left){
+            Mirror(pRoot->left);
+        }
+        //递归右子树
+        if(pRoot->right){
+            Mirror(pRoot->right);
+        }
+    }
+};
+
+4.python
+class Solution:
+    # 返回镜像树的根节点
+    def Mirror(self, root):
+        # write code here
+        if (root == None or (root.left == None and root.right == None)):
+            return None
+        tmp = root.left
+        root.left = root.right
+        root.right = tmp
+        
+        if root.left:
+            self.Mirror(root.left)
+        if root.right:
+            self.Mirror(root.right)
