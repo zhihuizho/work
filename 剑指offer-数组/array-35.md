@@ -45,6 +45,7 @@
 
 
 3.c++
+```c++
 class Solution {
 public:
     int InversePairs(vector<int> data) {
@@ -94,8 +95,10 @@ public:
         return leftCount + rightCount + count;
     }
 };
+```
 
 4.python
+```python
 class Solution:
     def InversePairs(self, data):
         # write code here
@@ -134,3 +137,4 @@ class Solution:
             j += 1
             index += 1
         return count + left + right
+```
