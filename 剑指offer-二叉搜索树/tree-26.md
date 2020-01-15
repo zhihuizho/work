@@ -14,6 +14,7 @@
 
 
 3.c++
+```c++
 class Solution {
 public:
     TreeNode* Convert(TreeNode* pRootOfTree)
@@ -56,3 +57,4 @@ public:
         }
     }
 };
+```
