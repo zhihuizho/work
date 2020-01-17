@@ -10,7 +10,7 @@
 本文采用数学之美上面提出的方法，设定整数点（如1、10、100等等）作为位置点i（对应n的各位、十位、百位等等），分别对每个数位上有多少包含1的点进行分析。
 
 根据设定的整数位置，对n进行分割，分为两部分，高位n/i，低位n%i
-当i表示百位，且百位对应的数>=2,如n=31456,i=100，则a=314,b=56，此时百位为1的次数有a/10+1=32（最高两位0~31），
+当i表示百位，且百位对应的数>=2,如n=31456,i=100，则a=314,b=56，此时百位为1的次数有a/10+1=32（最高两位0-31），
 每一次都包含100个连续的点，即共有(a/10+1)*100个点的百位为1
 当i表示百位，且百位对应的数为1，如n=31156,i=100，则a=311,b=56，此时百位对应的就是1，则共有a/10(最高两位0-30)次是包含100个连续点，
 当最高两位为31（即a=311），本次只对应局部点00~56，共b+1次，所有点加起来共有（a/10*100）+(b+1)，这些点百位对应为1
@@ -21,10 +21,33 @@
 
 3.c++
 ```c++
-https://blog.csdn.net/weixin_43013761/article/details/102698446
+class Solution {
+public:
+    int NumberOf1Between1AndN_Solution(int n)
+    {
+        // 统计次数
+        int count = 0;
+        for(int i = 1; i <= n; i *= 10){
+            // 计算高位和低位
+            int a = n / i, b = n % i;
+            count += (a + 8) / 10 * i + (a % 10 == 1) * (b + 1);
+        }
+        return count;
+    }
+};
 ```
 
 4.python
 ```python
-
+class Solution:
+    def NumberOf1Between1AndN_Solution(self, n):
+        # write code here
+        count = 0
+        i = 1
+        while i <= n:
+            a = n / i
+            b = n % i
+            count += (a+8) / 10 * i + (a % 10 == 1)*(b + 1)
+            i *= 10
+        return count
 ```
